@@ -7,9 +7,6 @@ on:
   pull_request:
     types: [labeled]
 
-env:
-  BASE_BRANCH: ${{ github.base_ref }}
-
 jobs:
   main:
     if: ${{ github.event.label.name == 'rebase' }}
@@ -24,10 +21,10 @@ jobs:
           git config --global user.email "${GITHUB_ACTOR}"
           git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
           git status
-          git checkout main
+          git switch main
           git pull
           git status
-          git checkout "$BASE_BRANCH"
+          git checkout "$GITHUB_HEAD_REF"
           git status
           git rebase main
           git status
@@ -36,6 +33,7 @@ jobs:
 
       # https://github.com/marketplace/actions/actions-ecosystem-remove-labels
       - name: remove rebase label
+        if: always()
         uses: actions-ecosystem/action-remove-labels@v1
         with:
           labels: rebase
