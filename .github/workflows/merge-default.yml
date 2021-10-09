@@ -3,7 +3,7 @@
 
 # Merges the repo's default branch into a PR when the "merge main" label is added
 
-name: Merge Main Into Pull Request
+name: Merge Main
 
 on:
   pull_request:
@@ -23,7 +23,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: perform rebase
+      - name: perform merge
         run: |
           git config --global user.email "${GITHUB_ACTOR}"
           git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
