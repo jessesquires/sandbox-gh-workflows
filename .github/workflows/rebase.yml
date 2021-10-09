@@ -23,7 +23,8 @@ jobs:
           git config --global user.email "${GITHUB_ACTOR}"
           git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
           git status
-          git switch main
+          git pull
+          git checkout main
           git pull
           git status
           git checkout "$GITHUB_HEAD_REF"
