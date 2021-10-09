@@ -36,7 +36,7 @@ jobs:
           git status
 
       # https://github.com/marketplace/actions/actions-ecosystem-remove-labels
-      - name: remove rebase label
+      - name: remove label
         if: always()
         uses: actions-ecosystem/action-remove-labels@v1
         with:
