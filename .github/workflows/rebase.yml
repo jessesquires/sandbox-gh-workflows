@@ -31,7 +31,7 @@ jobs:
           git pull
           git checkout "$DEFAULT_BRANCH"
           git status
-          git rebase "$DEFAULT_BRANCH" "$GITHUB_HEAD_REF"
+          git rebase -p "$DEFAULT_BRANCH" "$GITHUB_HEAD_REF"
           git push -uf
           git status
 
