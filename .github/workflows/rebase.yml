@@ -27,8 +27,8 @@ jobs:
         run: |
           git config --global user.email "${GITHUB_ACTOR}"
           git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
-          git checkout "$DEFAULT_BRANCH"
           git pull
+          git checkout "$DEFAULT_BRANCH"
           git status
           git checkout "$GITHUB_HEAD_REF"
           git status
@@ -43,4 +43,3 @@ jobs:
         uses: actions-ecosystem/action-remove-labels@v1
         with:
           labels: rebase
-
