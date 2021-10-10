@@ -18,14 +18,14 @@ jobs:
       - name: git checkout
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.PAT_TOKEN }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 0
       
       # https://github.com/marketplace/actions/automatic-rebase
       - name: automatic rebase
         uses: cirrus-actions/rebase@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # https://github.com/marketplace/actions/actions-ecosystem-remove-labels
       - name: remove label
