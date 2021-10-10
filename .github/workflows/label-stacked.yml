@@ -17,7 +17,7 @@ env:
   BASE_BRANCH: ${{ github.base_ref }}
 
 jobs:
-  main:
+  remove-stacked-label:
     runs-on: ubuntu-latest
     steps:
       # https://github.com/marketplace/actions/actions-ecosystem-remove-labels
@@ -26,7 +26,10 @@ jobs:
         if: env.BASE_BRANCH == env.DEFAULT_BRANCH
         with:
           labels: stacked PR
- 
+
+  add-stacked-label:
+    runs-on: ubuntu-latest
+    steps:
       # https://github.com/marketplace/actions/actions-ecosystem-add-labels
       - name: add label
         uses: actions-ecosystem/action-add-labels@v1
