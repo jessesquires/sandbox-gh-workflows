@@ -1,3 +1,5 @@
 # Test file
 
 Testing
+
+Newline
