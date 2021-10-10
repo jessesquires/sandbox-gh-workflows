@@ -1,5 +1,1 @@
-Testing
-
-Newline
-
-Another commit
+# Test file
