@@ -4,4 +4,3 @@ Testing
 
 Newline
 
-Another commit
