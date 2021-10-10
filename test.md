@@ -1,6 +1,3 @@
 # Test file
 
 Testing
-
-Newline
-
