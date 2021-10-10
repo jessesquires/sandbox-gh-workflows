@@ -1,0 +1,15 @@
+# GitHub Actions Virtual Environments
+# https://github.com/actions/virtual-environments/
+
+name: Test
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: echo "testing"
+        
