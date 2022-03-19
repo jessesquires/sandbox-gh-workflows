@@ -15,12 +15,12 @@ env:
 jobs:
   do-not-merge:
     # if: ${{ github.event.label.name == 'do not merge' }}
-    if: ${{ contains(github.event.*.labels.*.name, 'do not merge') }}
+    if: ${{ contains(github.event.*.labels.*.name, env.LABEL_NAME) }}
     name: "Prevent Merging"
     runs-on: ubuntu-latest
     steps:
       - name: Check for label
         run: |
-          echo "Pull request is labeled as 'Do Not Merge'"
+          echo "Pull request is labeled as '$LABEL_NAME'"
           echo "This workflow fails so that the pull request cannot be merged"
           exit 1
