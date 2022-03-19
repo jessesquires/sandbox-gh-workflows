@@ -34,9 +34,10 @@ jobs:
           git pull
           git checkout "$DEFAULT_BRANCH"
           git status
+          git pull
           git checkout "$GITHUB_HEAD_REF"
-          git rebase "$DEFAULT_BRANCH" --force-with-lease
-          git push
+          git rebase "$DEFAULT_BRANCH"
+          git push --force-with-lease
           git status
 
       # https://github.com/marketplace/actions/actions-ecosystem-remove-labels
