@@ -15,7 +15,7 @@ env:
 
 jobs:
   main:
-    if: ${{ github.event.label.name == 'rebase' }}
+    if: ${{ contains(github.event.*.labels.*.name, 'rebase') }}
     name: Rebase
     runs-on: ubuntu-latest
     steps:
