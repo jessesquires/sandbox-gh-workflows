@@ -35,7 +35,7 @@ jobs:
           git checkout "$DEFAULT_BRANCH"
           git status
           git checkout "$GITHUB_HEAD_REF"
-          git rebase "$DEFAULT_BRANCH"
+          git rebase "$DEFAULT_BRANCH" --force-with-lease
           git push
           git status
 
