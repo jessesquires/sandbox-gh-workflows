@@ -15,7 +15,7 @@ env:
 jobs:
   do-not-merge:
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.*.labels.*.name, env.LABEL_NAME) }}
+    if: ${{ github.event.label.name == env.LABEL_NAME }}
     steps:
       - name: Check for label
         run: |
