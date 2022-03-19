@@ -15,7 +15,7 @@ env:
 jobs:
   do-not-merge:
     # if: ${{ github.event.label.name == 'do not merge' }}
-    if: ${{ contains(github.event.*.labels.*.name, '$LABEL_NAME') }}
+    if: ${{ contains(github.event.*.labels.*.name, "$LABEL_NAME") }}
     name: "Prevent Merging"
     runs-on: ubuntu-latest
     steps:
