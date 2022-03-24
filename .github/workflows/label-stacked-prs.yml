@@ -22,6 +22,7 @@ env:
 
 jobs:
   remove-stacked-label:
+    name: Remove Stacked Label
     runs-on: ubuntu-latest
     steps:
       # https://github.com/marketplace/actions/actions-ecosystem-remove-labels
@@ -32,6 +33,7 @@ jobs:
           labels: stacked PR
 
   add-stacked-label:
+    name: Add Stacked Label
     runs-on: ubuntu-latest
     steps:
       # https://github.com/marketplace/actions/actions-ecosystem-add-labels
@@ -40,7 +42,13 @@ jobs:
         if: env.BASE_BRANCH != env.DEFAULT_BRANCH
         with:
           labels: stacked PR
-      - name: prevent stacked merge
+
+  prevent-stacked-merge:
+    needs: [add-stacked-label]
+    name: Prevent Stacked Merge
+    runs-on: ubuntu-latest
+    steps:
+      - name: prevent merge
         run: |
           echo "Pull request is stacked. Failing workflow to prevent merge."
           echo "Pull requests should only merge into the default branch: $DEFAULT_BRANCH"
