@@ -58,6 +58,11 @@ jobs:
         run: |
           echo "${{ github.event.inputs.version_bump }}" >> VERSION.txt
 
+      - name: write and read env
+        run: |
+          ./script.rb
+          echo "$HOPSCOTCH_APP_VERSION"
+
       - name: commit changes
         run: |
           git config --global user.email "${GITHUB_ACTOR}"
