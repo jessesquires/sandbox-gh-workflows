@@ -40,9 +40,13 @@ jobs:
         if: env.BASE_BRANCH != env.DEFAULT_BRANCH
         with:
           labels: stacked PR
-      - name: prevent merge
-        if: ${{ contains(github.event.*.labels.*.name, 'stacked PR') }}
+  
+  prevent-stacked-merge:
+    if: ${{ contains(github.event.*.labels.*.name, 'stacked PR') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: prevent stacked merge
         run: |
           echo "Pull request is stacked. Failing workflow to prevent merge."
-          echo "Pull requests should only merge into the default branch."
+          echo "Pull requests should only merge into the default branch: $DEFAULT_BRANCH"
           exit 1
