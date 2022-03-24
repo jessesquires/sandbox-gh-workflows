@@ -42,6 +42,7 @@ jobs:
           labels: stacked PR
   
   prevent-stacked-merge:
+    needs: [remove-stacked-label, add-stacked-label]
     if: ${{ contains(github.event.*.labels.*.name, 'stacked PR') }}
     runs-on: ubuntu-latest
     steps:
