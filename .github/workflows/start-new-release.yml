@@ -1,0 +1,39 @@
+# GitHub Actions Virtual Environments
+# https://github.com/actions/virtual-environments/
+
+name: Start New Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        type: choice
+        description: Version Bump
+        options:
+        - major
+        - minor
+        - patch
+        required: true
+
+jobs:
+  main:
+    name: New Release
+    runs-on: macos-11
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v3
+
+      - name: ruby versions
+        run: |
+          ruby --version
+          gem --version
+
+      # https://github.com/ruby/setup-ruby
+      - name: ruby setup
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+
+      - name: version bump
+        run: echo "${{ github.event.inputs.version_bump }}"
