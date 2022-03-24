@@ -58,11 +58,11 @@ jobs:
         run: |
           echo "${{ github.event.inputs.version_bump }}"
 
-      - name: write and read env
-        run: |
-          echo "testing"
-          echo "app_version=$(./script.rb)" >> $GITHUB_ENV
-          echo "${{ env.app_version }}"
+      - name: write env
+        run: echo "app_version=$(./script.rb)" >> $GITHUB_ENV
+
+      - name: read env
+        run: echo "${{ env.app_version }}"
 
       - name: commit changes
         if: false
