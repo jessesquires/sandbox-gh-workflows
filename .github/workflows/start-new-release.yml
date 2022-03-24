@@ -87,7 +87,7 @@ jobs:
       - name: commit version bump
         run: |
           git status
-          git checkout ${{ env.release_branch }}
+          git checkout "${{ env.release_branch }}"
           git add .
           git commit -m "[automated] version bump to ${{ env.app_version }}" || true
           git status
