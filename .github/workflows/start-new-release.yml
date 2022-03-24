@@ -16,6 +16,9 @@ on:
         default: 'minor'
         required: true
 
+env:
+    DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+
 jobs:
   main:
     name: New Release
@@ -23,18 +26,34 @@ jobs:
     steps:
       - name: git checkout
         uses: actions/checkout@v3
-
-      - name: ruby versions
-        run: |
-          ruby --version
-          gem --version
-
-      # https://github.com/ruby/setup-ruby
-      - name: ruby setup
-        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7
-          bundler-cache: true
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+#       - name: ruby versions
+#         run: |
+#           ruby --version
+#           gem --version
+#
+#       # https://github.com/ruby/setup-ruby
+#       - name: ruby setup
+#         uses: ruby/setup-ruby@v1
+#         with:
+#           ruby-version: 2.7
+#           bundler-cache: true
 
       - name: version bump
         run: echo "${{ github.event.inputs.version_bump }}"
+
+      - name: create release branch
+        run: |
+          git config --global user.email "${GITHUB_ACTOR}"
+          git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
+          git status
+          git checkout "$DEFAULT_BRANCH"
+          git pull
+          git status
+          git checkout -b release-branch
+          git push origin release-branch
+          git status
