@@ -59,33 +59,36 @@ jobs:
           echo "${{ github.event.inputs.version_bump }}"
 
       - name: write env
-        run: echo "app_version=$(./script.rb)" >> $GITHUB_ENV
+        run: |
+          echo "app_version=$(./script.rb)" >> $GITHUB_ENV
+          echo "release_branch=release/$(./script.rb)" >> $GITHUB_ENV
 
       - name: read env
-        run: echo "${{ env.app_version }}"
+        run: |
+          echo "Version: ${{ env.app_version }}"
+          echo "Branch: ${{ env.release_branch }}"
+          echo "${{ env.app_version }}" >> VERSION.txt
 
-      - name: commit changes
-        if: false
+      - name: set git config
         run: |
           git config --global user.email "${GITHUB_ACTOR}"
           git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
-          git status
-          git checkout "$DEFAULT_BRANCH"
-          git pull
-          git status
-          git add .
-          git commit -m "[automated] version bump" || true
-          git push
 
       - name: create release branch
-        if: false
         run: |
-          git config --global user.email "${GITHUB_ACTOR}"
-          git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
           git status
           git checkout "$DEFAULT_BRANCH"
           git pull
           git status
-          git checkout -b release-branch
-          git push origin release-branch
+          git checkout -b "${{ env.release_branch }}"
+          git push origin -u "${{ env.release_branch }}"
           git status
+
+      - name: commit version bump
+        run: |
+          git status
+          git checkout ${{ env.release_branch }}
+          git add .
+          git commit -m "[automated] version bump to ${{ env.app_version }}" || true
+          git status
+          git push
