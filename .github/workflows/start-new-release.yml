@@ -45,15 +45,30 @@ jobs:
 
       - name: major version bump
         if: ${{ github.event.inputs.version_bump == 'major' }}
-        run: echo "${{ github.event.inputs.version_bump }}"
+        run: |
+          echo "${{ github.event.inputs.version_bump }}" >> VERSION.txt
 
       - name: minor version bump
         if: ${{ github.event.inputs.version_bump == 'minor' }}
-        run: echo "${{ github.event.inputs.version_bump }}"
+        run: |
+          echo "${{ github.event.inputs.version_bump }}" >> VERSION.txt
 
       - name: patch version bump
         if: ${{ github.event.inputs.version_bump == 'patch' }}
-        run: echo "${{ github.event.inputs.version_bump }}"
+        run: |
+          echo "${{ github.event.inputs.version_bump }}" >> VERSION.txt
+
+      - name: commit changes
+        run: |
+          git config --global user.email "${GITHUB_ACTOR}"
+          git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
+          git status
+          git checkout "$DEFAULT_BRANCH"
+          git pull
+          git status
+          git add .
+          git commit -m "[automated] version bump" || true
+          git push
 
       - name: create release branch
         run: |
