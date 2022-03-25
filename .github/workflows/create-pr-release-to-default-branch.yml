@@ -33,7 +33,7 @@ jobs:
 
       # https://github.com/marketplace/actions/enable-pull-request-automerge
       - name: enable automerge
-        if: steps.open-pr.outputs.pr_number != ""
+        if: steps.open-pr.outputs.pr_number != ''
         uses: peter-evans/enable-pull-request-automerge@v2
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
