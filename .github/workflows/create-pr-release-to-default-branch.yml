@@ -20,23 +20,16 @@ jobs:
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
+          # ref: ${{ github.event.pull_request.head.ref }}
+          # fetch-depth: 0
 
-      # https://github.com/marketplace/actions/create-pull-request
+      # https://github.com/marketplace/actions/github-action-for-creating-pull-requests
       - name: create pull request
-        uses: peter-evans/create-pull-request@v3
+        uses: devops-infra/action-pull-request@v0.4.2
         with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          commit-message: "[Automated] $GITHUB_HEAD_REF into $DEFAULT_BRANCH"
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          target_branch: ${{ github.event.repository.default_branch }}
           title: "[Automated] $GITHUB_HEAD_REF into $DEFAULT_BRANCH"
-          body: |
-            :robot: *Automated Pull Request.* :robot:
-
-            This merges $GITHUB_HEAD_REF into $DEFAULT_BRANCH.
-
-          branch: "$GITHUB_HEAD_REF"
-          base: ${{ github.event.repository.default_branch }}
-          delete-branch: false
-          assignees: jessesquires
-          reviewers: jessesquires
+          body: ":robot: *Automated Pull Request.* :robot: Merging $GITHUB_HEAD_REF into $DEFAULT_BRANCH."
+          reviewer: jessesquires
+          assignee: jessesquires
