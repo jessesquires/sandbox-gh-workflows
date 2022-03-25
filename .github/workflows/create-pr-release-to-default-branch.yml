@@ -27,7 +27,7 @@ jobs:
           github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           destination_branch: ${{ github.event.repository.default_branch }}
           pr_title: "[Automated] Merge ${{ github.ref_name }} into ${{ github.event.repository.default_branch }}"
-          pr_body: ":robot: **Automated Pull Request.** Merging ${{ github.ref_name }} into ${{ github.event.repository.default_branch }}."
+          pr_body: ":robot: **Automated Pull Request.** Merging `${{ github.ref_name }}` into *${{ github.event.repository.default_branch }}*.<br>If there are conflicts, close this PR and resolve manually on an intermediate branch instead."
           pr_reviewer: "jessesquires"
           pr_assignee: "jessesquires"
 
