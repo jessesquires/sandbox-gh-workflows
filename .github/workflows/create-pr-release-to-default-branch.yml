@@ -35,7 +35,7 @@ jobs:
 
             This merges $GITHUB_HEAD_REF into $DEFAULT_BRANCH.
 
-          branch: ${{ github.event.pull_request.head.ref }}
+          branch: "$GITHUB_HEAD_REF"
           base: ${{ github.event.repository.default_branch }}
           delete-branch: false
           assignees: jessesquires
