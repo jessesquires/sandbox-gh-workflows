@@ -1,0 +1,42 @@
+# GitHub Actions Virtual Environments
+# https://github.com/actions/virtual-environments/
+
+name: Merge Release Into Main
+
+on:
+  push:
+    branches:
+      - 'release/*'
+
+env:
+  DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+
+jobs:
+  main:
+    name: Create PR Release to Main
+    runs-on: ubuntu-latest
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      # https://github.com/marketplace/actions/create-pull-request
+      - name: create pull request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          commit-message: "[Automated] $GITHUB_HEAD_REF into $DEFAULT_BRANCH"
+          title: "[Automated] $GITHUB_HEAD_REF into $DEFAULT_BRANCH"
+          body: |
+            :robot: *Automated Pull Request.* :robot:
+
+            This merges $GITHUB_HEAD_REF into $DEFAULT_BRANCH.
+
+          branch: ${{ github.event.pull_request.head.ref }}
+          base: ${{ github.event.repository.default_branch }}
+          delete-branch: false
+          assignees: jessesquires
+          reviewers: jessesquires
