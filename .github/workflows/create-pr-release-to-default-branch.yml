@@ -22,6 +22,11 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
+      - name: env vars
+        run: |
+          echo "Default: $DEFAULT_BRANCH"
+          echo "Release: $RELEASE_BRANCH"
+
       - name: perform merge
         run: |
           git config --global user.email "${GITHUB_ACTOR}"
@@ -44,7 +49,7 @@ jobs:
           commit-message: "[Automated] Merge ${{ github.ref_name }} into ${{ github.event.repository.default_branch }}"
           title: "[Automated] Merge ${{ github.ref_name }} into ${{ github.event.repository.default_branch }}"
           body: |
-            ":robot: _Automated Pull Request_ :robot: <br><br>Merging **${{ github.ref_name }}** into **${{ github.event.repository.default_branch }}**. <br><br> :warning: _If there are conflicts, you can resolve them on this branch._"
+            ":robot: _Automated Pull Request_ :robot: <br><br>Merging **${{ github.ref_name }}** into **${{ github.event.repository.default_branch }}**. <br><br> :warning: _If there are conflicts, you can resolve them directly on this branch._"
           delete-branch: true
           draft: false
 
