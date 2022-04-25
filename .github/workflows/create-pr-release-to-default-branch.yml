@@ -36,6 +36,7 @@ jobs:
           git checkout "$DEFAULT_BRANCH"
           git pull
           git status
+          git branch -a
           git merge "origin/$RELEASE_BRANCH" --no-edit
           git status
 
