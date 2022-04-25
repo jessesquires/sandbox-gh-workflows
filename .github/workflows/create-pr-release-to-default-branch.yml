@@ -36,7 +36,7 @@ jobs:
           git checkout "$DEFAULT_BRANCH"
           git pull
           git status
-          git merge "$RELEASE_BRANCH" --no-edit
+          git merge "origin/$RELEASE_BRANCH" --no-edit
           git status
 
       # https://github.com/marketplace/actions/create-pull-request
