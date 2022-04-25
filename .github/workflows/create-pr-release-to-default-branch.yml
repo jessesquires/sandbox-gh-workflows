@@ -50,7 +50,11 @@ jobs:
           commit-message: "[Automated] Merge ${{ github.ref_name }} into ${{ github.event.repository.default_branch }}"
           title: "[Automated] Merge ${{ github.ref_name }} into ${{ github.event.repository.default_branch }}"
           body: |
-            ":robot: _Automated Pull Request_ :robot: <br><br>Merging **${{ github.ref_name }}** into **${{ github.event.repository.default_branch }}**. <br><br> :warning: _If there are conflicts, you can resolve them directly on this branch._"
+            :robot: _Automated Pull Request_ :robot:
+
+            Merging **${{ github.ref_name }}** into **${{ github.event.repository.default_branch }}**.
+
+            :warning: _If there are conflicts, you can resolve them directly on this branch._
           delete-branch: true
           draft: false
 
