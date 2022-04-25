@@ -28,7 +28,6 @@ jobs:
           echo "Release: $RELEASE_BRANCH"
 
       - name: perform merge
-        continue-on-error: true
         run: |
           git config --global user.email "${GITHUB_ACTOR}"
           git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
@@ -40,6 +39,7 @@ jobs:
           git branch -a
           git merge "$RELEASE_BRANCH" --allow-unrelated-histories --no-edit
           git status
+        continue-on-error: true
 
       # https://github.com/marketplace/actions/create-pull-request
       - name: create pull request
