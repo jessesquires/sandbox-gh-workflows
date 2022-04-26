@@ -69,8 +69,8 @@ jobs:
         with:
           title: ${{ env.app_version }}
           state: open
-          env:
-            GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # https://github.com/marketplace/actions/create-pull-request
       - name: create version bump PR
