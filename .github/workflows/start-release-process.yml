@@ -108,6 +108,19 @@ jobs:
     name: Create Milestone
     runs-on: ubuntu-latest
     steps:
+      - name: git checkout
+        uses: actions/checkout@v3
+
+      # https://github.com/ruby/setup-ruby
+      - name: ruby setup
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0
+          bundler-cache: true
+
+      - name: set env variable
+        run: echo "app_version=$(./scripts/app_version.rb)" >> $GITHUB_ENV
+
       # https://github.com/marketplace/actions/manage-milestones
       - name: create milestone
         uses: julb/action-manage-milestone@v1
