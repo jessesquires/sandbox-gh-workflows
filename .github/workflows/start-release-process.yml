@@ -20,6 +20,7 @@ env:
   DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
 
 jobs:
+  # version bump requires macos to update the xcconfig file
   main:
     name: Start Release Process
     runs-on: macos-12
@@ -103,6 +104,8 @@ jobs:
           git push origin -u "${{ env.release_branch }}"
           git status
 
+  # the create milestone action requires linux
+  # so this needs to be a separate job
   milestone:
     needs: [main]
     name: Create Milestone
