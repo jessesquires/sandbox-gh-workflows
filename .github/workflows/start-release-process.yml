@@ -1,14 +1,14 @@
 # GitHub Actions Virtual Environments
 # https://github.com/actions/virtual-environments/
 
-name: Start New Release
+name: Start Release Process
 
 on:
   workflow_dispatch:
     inputs:
       version_bump:
         type: choice
-        description: Version Bump
+        description: Version bump on main for NEXT release
         options:
         - major
         - minor
@@ -21,8 +21,8 @@ env:
 
 jobs:
   main:
-    name: New Release
-    runs-on: macos-11
+    name: Start Release Process
+    runs-on: macos-12
     steps:
       - name: git checkout
         uses: actions/checkout@v3
@@ -43,34 +43,48 @@ jobs:
 
       - name: major version bump
         if: ${{ github.event.inputs.version_bump == 'major' }}
-        run: |
-          echo "${{ github.event.inputs.version_bump }}"
+        run: echo "major" >> version.txt
 
       - name: minor version bump
         if: ${{ github.event.inputs.version_bump == 'minor' }}
-        run: |
-          echo "${{ github.event.inputs.version_bump }}"
+        run: echo "minor" >> version.txt
 
       - name: patch version bump
         if: ${{ github.event.inputs.version_bump == 'patch' }}
-        run: |
-          echo "${{ github.event.inputs.version_bump }}"
+        run: echo "patch" >> version.txt
 
-      - name: write env
+      - name: set env variables
         run: |
-          echo "app_version=$(./script.rb)" >> $GITHUB_ENV
-          echo "release_branch=release/$(./script.rb)" >> $GITHUB_ENV
+          echo "app_version=$(./scripts/app_version.rb)" >> $GITHUB_ENV
+          echo "release_branch=release/$(./scripts/app_version.rb)" >> $GITHUB_ENV
 
-      - name: read env
+      - name: verify env variables
         run: |
-          echo "Version: ${{ env.app_version }}"
-          echo "Branch: ${{ env.release_branch }}"
-          echo "${{ env.app_version }}" >> VERSION.txt
+          echo "App Version: ${{ env.app_version }}"
+          echo "Release Branch: ${{ env.release_branch }}"
 
       - name: set git config
         run: |
           git config --global user.email "${GITHUB_ACTOR}"
           git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
+
+      # https://github.com/marketplace/actions/create-pull-request
+      - name: create version bump PR
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GH_ACTIONS_ACCESS_TOKEN }}
+          base: ${{ github.event.repository.default_branch }}
+          commit-message: "[Automated] Version Bump to ${{ env.app_version }}"
+          title: "[Automated] Version Bump to ${{ env.app_version }}"
+          body: |
+            :robot: _Automated Pull Request_ :robot:
+
+            Version Bump `main` to ${{ env.app_version }}.
+
+            This pull request was initiated by @${{ github.actor }}.
+          branch: automated/version-bump-${{ env.app_version }}
+          delete-branch: true
+          draft: false
 
       - name: create release branch
         run: |
@@ -81,12 +95,3 @@ jobs:
           git checkout -b "${{ env.release_branch }}"
           git push origin -u "${{ env.release_branch }}"
           git status
-
-      - name: commit version bump
-        run: |
-          git status
-          git checkout "${{ env.release_branch }}"
-          git add .
-          git commit -m "[automated] version bump to ${{ env.app_version }}" || true
-          git status
-          git push
