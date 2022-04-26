@@ -63,15 +63,6 @@ jobs:
           echo "App Version: ${{ env.app_version }}"
           echo "Release Branch: ${{ env.release_branch }}"
 
-      # https://github.com/marketplace/actions/manage-milestones
-      - name: create milestone
-        uses: julb/action-manage-milestone@v1
-        with:
-          title: ${{ env.app_version }}
-          state: open
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
       # https://github.com/marketplace/actions/create-pull-request
       - name: create version bump PR
         id: create-pr
@@ -111,3 +102,17 @@ jobs:
           git checkout -b "${{ env.release_branch }}"
           git push origin -u "${{ env.release_branch }}"
           git status
+
+  milestone:
+    needs: [main]
+    name: Create Milestone
+    runs-on: ubuntu-latest
+    steps:
+      # https://github.com/marketplace/actions/manage-milestones
+      - name: create milestone
+        uses: julb/action-manage-milestone@v1
+        with:
+          title: ${{ env.app_version }}
+          state: open
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
