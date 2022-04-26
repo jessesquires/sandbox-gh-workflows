@@ -72,7 +72,7 @@ jobs:
       - name: create version bump PR
         uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.GH_ACTIONS_ACCESS_TOKEN }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           base: ${{ github.event.repository.default_branch }}
           commit-message: "[Automated] Version Bump to ${{ env.app_version }}"
           title: "[Automated] Version Bump to ${{ env.app_version }}"
