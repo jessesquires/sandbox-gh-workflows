@@ -63,10 +63,14 @@ jobs:
           echo "App Version: ${{ env.app_version }}"
           echo "Release Branch: ${{ env.release_branch }}"
 
-      - name: set git config
-        run: |
-          git config --global user.email "${GITHUB_ACTOR}"
-          git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
+      # https://github.com/marketplace/actions/manage-milestones
+      - name: create milestone
+        uses: julb/action-manage-milestone@v1
+        with:
+          title: ${{ env.app_version }}
+          state: open
+          env:
+            GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # https://github.com/marketplace/actions/create-pull-request
       - name: create version bump PR
@@ -80,7 +84,7 @@ jobs:
           body: |
             :robot: _Automated Pull Request_ :robot:
 
-            Version Bump `main` to `${{ env.app_version }}`.
+            **Version bump `main` to `${{ env.app_version }}`**
 
             This pull request was initiated by @${{ github.actor }}.
           branch: automated/version-bump-${{ env.app_version }}
@@ -98,6 +102,8 @@ jobs:
 
       - name: create release branch
         run: |
+          git config --global user.email "${GITHUB_ACTOR}"
+          git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
           git status
           git checkout "$DEFAULT_BRANCH"
           git pull
