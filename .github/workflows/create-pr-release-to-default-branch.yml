@@ -37,7 +37,9 @@ jobs:
           git pull
           git status
           git branch -a
+          git checkout -b automated/merge-release-to-main
           git merge "$RELEASE_BRANCH" --allow-unrelated-histories --no-edit
+          git push origin -u automated/merge-release-to-main
           git status
         continue-on-error: true
 
