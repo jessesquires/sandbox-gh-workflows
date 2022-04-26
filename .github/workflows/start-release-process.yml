@@ -70,6 +70,7 @@ jobs:
 
       # https://github.com/marketplace/actions/create-pull-request
       - name: create version bump PR
+        id: create-pr
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -79,12 +80,21 @@ jobs:
           body: |
             :robot: _Automated Pull Request_ :robot:
 
-            Version Bump `main` to ${{ env.app_version }}.
+            Version Bump `main` to `${{ env.app_version }}`.
 
             This pull request was initiated by @${{ github.actor }}.
           branch: automated/version-bump-${{ env.app_version }}
           delete-branch: true
           draft: false
+
+      # https://github.com/marketplace/actions/enable-pull-request-automerge
+      - name: enable automerge
+        if: steps.create-pr.outputs.pull-request-operation == 'created'
+        uses: peter-evans/enable-pull-request-automerge@v2
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          pull-request-number: ${{ steps.create-pr.outputs.pull-request-number }}
+          merge-method: squash
 
       - name: create release branch
         run: |
