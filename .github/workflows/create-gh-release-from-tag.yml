@@ -3,7 +3,10 @@
 
 name: Create GitHub Release From Tag
 
-on: push
+on:
+  push:
+    branches:
+      - 'release/*'
 
 jobs:
   main:
