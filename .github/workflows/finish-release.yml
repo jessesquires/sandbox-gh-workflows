@@ -1,6 +1,12 @@
 # GitHub Actions Virtual Environments
 # https://github.com/actions/virtual-environments/
 
+# Wraps up a release.
+#
+# 1. creates a git tag
+# 2. closes the release milestone
+# 3. creates a GH release from the tag
+
 name: Finish Release
 
 on:
