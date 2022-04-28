@@ -122,6 +122,7 @@ jobs:
 
   # the milestone action requires linux
   # so this needs to be a separate job
+  # we pass this job the app version as an output from the previous job
   milestone:
     needs: [main]
     name: Create Milestone
