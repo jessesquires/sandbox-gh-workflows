@@ -47,6 +47,7 @@ jobs:
           bundler-cache: true
 
       - name: set env variables
+        # TODO: use your version script here
         run: |
           echo "app_version=$(./scripts/app_version.rb)" >> $GITHUB_ENV
           echo "release_branch=release/$(./scripts/app_version.rb)" >> $GITHUB_ENV
