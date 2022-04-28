@@ -1,6 +1,12 @@
 # GitHub Actions Virtual Environments
 # https://github.com/actions/virtual-environments/
 
+# Begins a new release.
+#
+# 1. creates a release/* branch
+# 2. version bumps main for next release
+# 3. creates milestone for next release
+
 name: Start Release Process
 
 on:
@@ -44,17 +50,21 @@ jobs:
 
       - name: major version bump
         if: ${{ github.event.inputs.version_bump == 'major' }}
+        # TODO: run your script to bump the version
         run: echo "major" >> version.txt
 
       - name: minor version bump
         if: ${{ github.event.inputs.version_bump == 'minor' }}
+        # TODO: run your script to bump the version
         run: echo "minor" >> version.txt
 
       - name: patch version bump
         if: ${{ github.event.inputs.version_bump == 'patch' }}
+        # TODO: run your script to bump the version
         run: echo "patch" >> version.txt
 
       - name: set env variables
+        # TODO: use your version script here
         run: |
           echo "app_version=$(./scripts/app_version.rb)" >> $GITHUB_ENV
           echo "release_branch=release/$(./scripts/app_version.rb)" >> $GITHUB_ENV
