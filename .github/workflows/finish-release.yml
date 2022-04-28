@@ -69,3 +69,11 @@ jobs:
           state: closed
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+      # https://github.com/marketplace/actions/github-create-tag-release
+      - name: create github release
+        uses: Roang-zero1/github-create-release-action@v2.1.0
+        with:
+          created_tag: "v${{ env.app_version }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
