@@ -6,7 +6,11 @@ name: Finish Release
 on:
   workflow_dispatch:
     inputs:
-      confirmation:
+      confirmation-branch:
+        type: boolean
+        description: I have selected the RELEASE branch above.
+        required: true
+      confirmation-merge:
         type: boolean
         description: I have verified that the release branch has been merged and is zero commits ahead of main.
         required: true
