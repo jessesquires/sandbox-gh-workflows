@@ -79,15 +79,7 @@ jobs:
           git push origin --delete "${{ env.release_branch }}"
           git status
 
-      # https://github.com/marketplace/actions/github-create-tag-release
-      - name: create github release
-        uses: Roang-zero1/github-create-release-action@v2.1.0
-        with:
-          created_tag: "v${{ env.app_version }}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
-  # the milestone action requires linux
+  # the milestone and github release actions requires linux
   # so this needs to be a separate job
   # we pass this job the app version as an output from the previous job
   milestone:
@@ -97,6 +89,14 @@ jobs:
     steps:
       - name: verify job outputs
         run: echo ${{ needs.main.outputs.output_version }}
+
+      # https://github.com/marketplace/actions/github-create-tag-release
+      - name: create github release
+        uses: Roang-zero1/github-create-release-action@v2.1.0
+        with:
+          created_tag: "v${{ needs.main.outputs.output_version }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       # https://github.com/marketplace/actions/manage-milestones
       - name: close milestone
