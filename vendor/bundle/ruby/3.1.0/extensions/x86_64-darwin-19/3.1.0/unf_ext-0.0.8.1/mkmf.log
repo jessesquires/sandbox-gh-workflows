@@ -1,0 +1,37 @@
+have_library: checking for -lstdc++... -------------------- yes
+
+DYLD_FALLBACK_LIBRARY_PATH=.:/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/lib "clang -o conftest -I/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/include/ruby-3.1.0/x86_64-darwin19 -I/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/include/ruby-3.1.0/ruby/backward -I/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/include/ruby-3.1.0 -I. -I/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/include -DENABLE_PATH_CHECK=0 -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wdivision-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wextra-tokens -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/lib -L. -L/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/lib  -fstack-protector-strong -L/usr/local/lib     -lruby.3.1   "
+2022-04-28 18:51:16.440 xcodebuild[1671:22079] Requested but did not find extension point with identifier Xcode.IDEKit.ExtensionSentinelHostApplications for extension Xcode.DebuggerFoundation.AppExtensionHosts.watchOS of plug-in com.apple.dt.IDEWatchSupportCore
+2022-04-28 18:51:16.443 xcodebuild[1671:22079] Requested but did not find extension point with identifier Xcode.IDEKit.ExtensionPointIdentifierToBundleIdentifier for extension Xcode.DebuggerFoundation.AppExtensionToBundleIdentifierMap.watchOS of plug-in com.apple.dt.IDEWatchSupportCore
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+DYLD_FALLBACK_LIBRARY_PATH=.:/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/lib "clang -o conftest -I/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/include/ruby-3.1.0/x86_64-darwin19 -I/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/include/ruby-3.1.0/ruby/backward -I/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/include/ruby-3.1.0 -I. -I/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/include -DENABLE_PATH_CHECK=0 -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -fdeclspec -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wdivision-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wold-style-definition -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wextra-tokens -Wundef  -fno-common -pipe conftest.c  -L. -L/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/lib -L. -L/Users/runner/hostedtoolcache/Ruby/3.1.2/x64/lib  -fstack-protector-strong -L/usr/local/lib     -lruby.3.1 -lstdc++   "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: 
+15: int t(void) { ; return 0; }
+/* end */
+
+--------------------
+
