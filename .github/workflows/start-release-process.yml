@@ -87,7 +87,8 @@ jobs:
           echo "next_version=$(./scripts/app_version.rb)" >> $GITHUB_ENV
 
       - name: verify env next version
-        run: echo "Next Version: ${{ env.next_version }}"
+        run: |
+          echo "Next Version: ${{ env.next_version }}"
 
       - name: set next version output
         id: step_next_version
