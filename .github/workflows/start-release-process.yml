@@ -123,9 +123,9 @@ jobs:
   # the milestone action requires linux
   # so this needs to be a separate job
   # we pass this job the app version as an output from the previous job
-  milestone:
+  milestone-and-checklist:
     needs: [main]
-    name: Create Milestone
+    name: Create Milestone and Checklist
     runs-on: ubuntu-latest
     steps:
       - name: verify job outputs
@@ -133,9 +133,20 @@ jobs:
 
       # https://github.com/marketplace/actions/manage-milestones
       - name: create milestone
+        id: milestone
         uses: julb/action-manage-milestone@v1
         with:
           title: ${{ needs.main.outputs.output_version }}
           state: open
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+      # https://github.com/marketplace/actions/create-an-issue
+      - name: open release checklist
+        uses: JasonEtco/create-an-issue@v2
+        with:
+          filename: .github/release_checklist.md
+          milestone: ${{ steps.milestone.outputs.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          VERSION: ${{ needs.main.outputs.output_version }}
