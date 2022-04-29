@@ -1,7 +1,7 @@
 ---
 name: Release Checklist
 about: Create new release checklist issue
-title: {{ env.VERSION }} Release Checklist
+title: Release Checklist
 labels: release
 assignees: ''
 ---
@@ -10,7 +10,7 @@ assignees: ''
 
 📝 _You can [edit this template here](https://github.com/gethopscotch/hopscotch-iPad/blob/main/.github/release_checklist.md)._
 
-# Release Checklist
+# {{ env.VERSION }} Release Checklist
 
 Please refer to our [Release Process documentation](https://github.com/gethopscotch/hopscotch-iPad/blob/main/docs/release_process.md).
 
