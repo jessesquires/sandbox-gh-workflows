@@ -128,6 +128,11 @@ jobs:
     name: Create Milestone and Checklist
     runs-on: ubuntu-latest
     steps:
+      - name: git checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
       - name: verify job outputs
         run: echo ${{ needs.main.outputs.output_version }}
 
