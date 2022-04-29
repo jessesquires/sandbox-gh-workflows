@@ -153,12 +153,20 @@ jobs:
           echo "Next: ${{ needs.main.outputs.output_next_version }}"
 
       # https://github.com/marketplace/actions/manage-milestones
-      - name: create milestone
-        id: milestone
+      - name: create next milestone
         uses: julb/action-manage-milestone@v1
         with:
           title: ${{ needs.main.outputs.output_next_version }}
           state: open
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+      # https://github.com/marketplace/actions/manage-milestones
+      - name: get release milestone
+        id: milestone
+        uses: julb/action-manage-milestone@v1
+        with:
+          title: ${{ needs.main.outputs.output_release_version }}
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
