@@ -148,14 +148,16 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: verify job outputs
-        run: echo ${{ needs.main.outputs.output_release_version }}
+        run: |
+          echo "Release: ${{ needs.main.outputs.output_release_version }}"
+          echo "Next: ${{ needs.main.outputs.output_next_version }}"
 
       # https://github.com/marketplace/actions/manage-milestones
       - name: create milestone
         id: milestone
         uses: julb/action-manage-milestone@v1
         with:
-          title: ${{ needs.main.outputs.output_release_version }}
+          title: ${{ needs.main.outputs.output_next_version }}
           state: open
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
