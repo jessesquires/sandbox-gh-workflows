@@ -4,10 +4,9 @@
 
 require 'rubygems'
 require 'bundler/setup'
-require 'Xcodeproj'
 
-update_xcconfig_value(
-  path: 'Sources/App.xcconfig',
-  name: 'MARKETING_VERSION',
-  value: '2.0.0'
-)
+base_dir = File.expand_path(".")
+path = "#{base_dir}/Sources/App.xcconfig"
+contents = "MARKETING_VERSION = 2.0.0\n"
+
+File.open(path, "w"){ |f| f.write contents }
