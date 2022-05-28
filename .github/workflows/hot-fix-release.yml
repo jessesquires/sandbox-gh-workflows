@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
     inputs:
       version_tag:
-        description: 'Enter the existing app version to hot fix. (Example: 1.2.3)'
+        description: 'Enter the EXISTING app version that needs to be hot-fixed. (Example: 1.2.3)'
         required: true
         type: string
 
@@ -70,7 +70,7 @@ jobs:
           git config --global user.email "${GITHUB_ACTOR}"
           git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
           git status
-          git pull
+          git fetch --all
           git stash
           git checkout v${{ github.event.inputs.version_tag }}
           git checkout -b "${{ env.hotfix_branch }}"
