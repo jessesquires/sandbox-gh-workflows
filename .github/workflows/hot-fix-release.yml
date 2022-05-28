@@ -70,11 +70,12 @@ jobs:
           git config --global user.email "${GITHUB_ACTOR}"
           git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
           git status
-          git pull
-          git checkout -b "${{ env.hotfix_branch }}" "v${{ github.event.inputs.version_tag }}"
+          git fetch
+          git checkout "v${{ github.event.inputs.version_tag }}"
+          git checkout -b "${{ env.hotfix_branch }}"
           git status
           git commit -am "[Automated] hot fix version bump to ${{ env.hotfix_version }}"
-          git push origin -u "${{ env.release_branch }}"
+          git push origin -u "${{ env.hotfix_branch }}"
           git status
 
   # the milestone action requires linux
