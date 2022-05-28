@@ -71,6 +71,7 @@ jobs:
           git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
           git status
           git fetch --all
+          git tag -l
           git stash
           git checkout v${{ github.event.inputs.version_tag }}
           git checkout -b "${{ env.hotfix_branch }}"
