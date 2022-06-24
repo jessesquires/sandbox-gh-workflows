@@ -78,7 +78,7 @@ jobs:
         run: |
           git checkout -b "${{ env.hotfix_branch }}"
           git status
-          git stash apply
+          git add .
           git commit -am "[Automated] hot fix version bump to ${{ env.hotfix_version }}"
           git push origin -u "${{ env.hotfix_branch }}"
           git status
