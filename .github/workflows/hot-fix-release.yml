@@ -47,6 +47,14 @@ jobs:
           ruby-version: 3.0
           bundler-cache: true
 
+      - name: checkout git tag
+        run: |
+          git config --global user.email "${GITHUB_ACTOR}"
+          git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
+          git status
+          git fetch --all
+          git checkout v${{ github.event.inputs.version_tag }}
+
       - name: patch version bump
         # TODO: run your script to bump the version
         run: ./scripts/set_app_version.rb
@@ -68,12 +76,6 @@ jobs:
 
       - name: create hotfix branch
         run: |
-          git config --global user.email "${GITHUB_ACTOR}"
-          git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
-          git status
-          git fetch --all
-          git stash
-          git checkout v${{ github.event.inputs.version_tag }}
           git checkout -b "${{ env.hotfix_branch }}"
           git status
           git stash apply
