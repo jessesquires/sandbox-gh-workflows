@@ -245,9 +245,9 @@ GEM
     json (2.7.2)
     jwt (2.8.2)
       base64
-    kintsugi (0.7.6)
+    kintsugi (0.7.8)
       tty-prompt (~> 0)
-      xcodeproj (>= 1.19.0, <= 1.24.0)
+      xcodeproj (>= 1.19.0, <= 1.25.0)
     kramdown (2.4.0)
       rexml
     kramdown-parser-gfm (1.1.0)
@@ -282,8 +282,7 @@ GEM
       trailblazer-option (>= 0.1.1, < 0.2.0)
       uber (< 0.2.0)
     retriable (3.1.2)
-    rexml (3.2.9)
-      strscan
+    rexml (3.3.9)
     rouge (2.0.7)
     ruby-macho (2.5.1)
     ruby2_keywords (0.0.5)
@@ -301,7 +300,6 @@ GEM
     simctl (1.6.10)
       CFPropertyList
       naturally
-    strscan (3.1.0)
     synx (0.2.1)
       clamp (~> 0.6)
       colorize (~> 0.7)
@@ -330,13 +328,13 @@ GEM
     unicode-display_width (2.5.0)
     wisper (2.0.1)
     word_wrap (1.0.0)
-    xcodeproj (1.24.0)
+    xcodeproj (1.25.0)
       CFPropertyList (>= 2.3.3, < 4.0)
       atomos (~> 0.1.3)
       claide (>= 1.0.2, < 2.0)
       colored2 (~> 3.1)
       nanaimo (~> 0.3.0)
-      rexml (~> 3.2.4)
+      rexml (>= 3.3.2, < 4.0)
     xcpretty (0.3.0)
       rouge (~> 2.0.7)
     xcpretty-travis-formatter (1.0.1)
