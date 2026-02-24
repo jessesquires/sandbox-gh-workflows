@@ -1,0 +1,55 @@
+# GitHub Actions Virtual Environments
+# https://github.com/actions/virtual-environments/
+
+name: Update Dependencies
+
+on:
+  workflow_dispatch:
+  schedule:
+    # First day of each month at midnight
+    # https://crontab.guru/#0_0_1_*_*
+    - cron: "0 0 1 * *"
+
+jobs:
+  update-bundle:
+    name: Update bundle
+    runs-on: ubuntu-latest
+    steps:
+      - name: ruby versions
+        run: |
+          ruby --version
+          gem --version
+
+      - name: git checkout
+        uses: actions/checkout@v6
+
+      # https://github.com/ruby/setup-ruby
+      - name: ruby setup
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: update bundle
+        run: |
+          bundle config set frozen false
+          bundle update --all
+          bundle update --bundler
+
+      # https://github.com/peter-evans/create-pull-request
+      - name: create pull request
+        id: pr1
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.PAT_GH_BOT_HAL_9000 }}
+          commit-message: "[automated] update bundle dependencies"
+          title: "[automated] update bundle dependencies"
+          body: "bundle update automated via gitHub actions"
+          branch: automated/update-bundle
+          delete-branch: true
+          reviewers: jessesquires
+
+      - name: enable automerge
+        if: steps.pr1.outputs.pull-request-operation == 'created'
+        run: gh pr merge --squash --auto "${{ steps.pr1.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ secrets.PAT_GH_BOT_HAL_9000 }}
